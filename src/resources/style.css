@@ -1,0 +1,14 @@
+body{
+  background-color: rgb(255, 255, 255);
+}
+.bg-light{
+  background-color: #da4049 !important;
+}
+
+.navbar-brand{
+  color: #fff !important;
+}
+.inactive {
+  color: #fff;
+  text-decoration: none;
+}
