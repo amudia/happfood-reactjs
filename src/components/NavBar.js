@@ -1,10 +1,3 @@
-import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
-import {APP_URL} from '../resources/config';
-import Axios from 'axios';
-import Cookie from 'js-cookie';
-import Jwt from 'jwt-decode';
-
 import {
     Collapse,
     Navbar,
@@ -18,35 +11,58 @@ import {
     DropdownItem,
     Button
   } from 'reactstrap';
+import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
+import {APP_URL} from '../resources/config';
+import Axios from 'axios';
+import Cookie from 'js-cookie';
+import Jwt from 'jwt-decode';
 
 const token = Cookie.get('token')
+
 let decode = ''
 if(token){
   decode = Jwt(token)
 }
-
-export default class NavBar extends Component {
+  
+class NavBar extends Component {
   constructor(props){
     super(props)
     this.state = {
-      id : decode.id,
-      username:'',
-      password:'',
-      token:'',
       isOpen: false,
+      id : decode.id,
+      username: '',
+      password: '',
+      token: ''
     }
   }
 
+  // async logout(){
+  //   await Axios.get( APP_URL.concat('users/logout'), {
+  //     headers: {
+  //        Authorization: 'Bearer ' + token
+  //     }
+  //   })
+  //     .then((res) =>{
+  //       console.log(res)
+  //       if (res.data.success === true) {
+  //         Cookie.remove('token')
+  //         window.location.reload()            
+  //       }
+  //     })
+  // }
+
+
   logout = async () => {
-    console.log(decode.id)
     const url = APP_URL.concat(`users/logout`)
+    // console.log(token)
     await Axios.get(url, {
         headers: {
-            Authorization: 'Bearer ' + token 
+            Authorization: 'Bearer ' + token
         }
     })
         .then((res) => {
-            console.log(res)
+            console.log(token)
             if (res.data.success === true) {
                 Cookie.remove('token')
                 window.location.reload()
@@ -67,6 +83,7 @@ export default class NavBar extends Component {
   }
   render() {
     const id = decode.id
+    {console.log(id)}
     return (
         <div>
         <Navbar color="light" light expand="md">
@@ -102,7 +119,7 @@ export default class NavBar extends Component {
             <Nav navbar style={{paddingRight:'150px'}}>
 
           <NavItem>
-            <Link className="nav-link" style={{ color:'#fff', marginLeft:5, fontSize:30}} to={`/Carts/${id}`}>
+            <Link className="nav-link" style={{ color:'#fff', marginLeft:5, fontSize:30}} to={`/Carts/${this.state.id}`}>
             <icon className="fa fa-shopping-cart mr-1" ></icon>
             </Link>
             </NavItem>
@@ -121,7 +138,7 @@ export default class NavBar extends Component {
 :
             <Nav navbar>
             <NavItem>
-            <Button onClick={()=> {this.logout();} } color="danger" style={{color:'#dd4045', marginLeft:5, marginTop:15,borderColor:'#dd4045', backgroundColor:'#fff',fontSize:11}}><b>LOGOUT</b></Button>
+            <Button onClick={() => {this.logout(); }} type='submit' value = 'submit' color="danger" style={{color:'#dd4045', marginLeft:5, marginTop:15,borderColor:'#dd4045', backgroundColor:'#fff',fontSize:11}}><b>LOGOUT</b></Button>
             </NavItem>
             </Nav>
   }
@@ -133,3 +150,4 @@ export default class NavBar extends Component {
         )
   }
 }
+export default NavBar

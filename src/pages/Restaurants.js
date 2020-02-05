@@ -36,7 +36,7 @@ class Restaurants extends React.Component{
     {isFetched&&data.data.map(v=>(
       <Col sm="3" key={v.id_restaurant} style={{ marginBottom:15, borderRadius:20}}>
       <Card>
-        <CardImg top style={{width:"100%"}} src={APP_URL.concat(`src/assets/${v.logo}`)} alt="Card image cap"/>
+        <CardImg top style={{width:"100%", height:"150px"}} src={APP_URL.concat(`src/assets/${v.logo}`)} alt="Card image cap"/>
         <CardBody style={{height:'100px'}}>
           <CardTitle style={{fontSize:'10px'}}><b>{v.name_rest}</b></CardTitle>
           <Link style={{marginRight:'10px'}} className="btn btn-info" to={`/restaurants/menu/${v.id_restaurant}`}><a style={{fontSize:'12px'}}>Menu</a></Link>

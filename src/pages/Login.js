@@ -1,22 +1,35 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import {APP_URL} from '../resources/config'
 import Axios from 'axios';
 import Cookie from 'js-cookie'
 import { Button, Container } from 'reactstrap';
+import {connect} from 'react-redux'
+import {logIn} from '../redux/action/login'
+
 
 // const token = Cookie.get('token')
 
 class Login extends React.Component{
   constructor(props){
     super(props)
+    // this.onSubmit = this.onSubmit.bind(this);
     this.state={
-      username:'',
-      password:'',
-      token:''
+      username:"",
+      password:"",
+      token:""
     }
   }
 
+  // async onSubmit(event){
+  //   event.preventDefault();
+  //   const username = await this.state.username
+  //   const password = await this.state.password
+  //   await this.props.dispatch(logIn({username, password}))
+  //   // const data = await Axios.post(  APP_URL.concat('user/login'),this.state)
+  //   // console.log(this.props);
+  //   Cookie.set('token', this.props.login.data )
+  //   window.location = '/'
+  // }
   login = async () => {
     
     const url = APP_URL.concat(`users/login`)
@@ -83,7 +96,7 @@ class Login extends React.Component{
                     </div>                        
                         
                         <div className="form-row">
-                        <Button type="button" className="btn btn-danger btn-block" onClick={()=> {this.login();} }>Login</Button>
+                        <Button type="button" className="btn btn-danger btn-block" onClick={() => {this.login(); }}>Login</Button>
                         </div>
                     </form>
 	                </div>
@@ -123,4 +136,10 @@ class Login extends React.Component{
 }
 
 
-export default Login;
+const mapStateToProps = state => {
+  return {
+    login: state.login
+  }
+}
+
+export default connect(mapStateToProps)(Login)

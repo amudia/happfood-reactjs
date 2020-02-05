@@ -4,18 +4,24 @@ import { Container } from "reactstrap";
 import {Link} from 'react-router-dom'
 import { Card, CardImg, CardSubtitle, CardBody,Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import {APP_URL} from '../resources/config'
+import { getItems } from '../redux/action/items'
+import { connect } from 'react-redux'
 
-export default class Home extends Component {
+class Home extends Component {
     constructor(props){
         super(props)
         this.state = {
          data:[],
+         isLoading :false,
 
         }
     }
     async componentDidMount(){
-      const {data}=await axios.get(APP_URL.concat('items'))
-      this.setState({data, isFetched:!this.state.isFetched})
+      // const {data}=await axios.get(APP_URL.concat('items'))
+      this.props.dispatch(getItems())
+      this.setState({isLoading:true})
+
+      // this.setState({data, isFetched:!this.state.isFetched})
     }
 
     prevButton = async()=>{
@@ -71,12 +77,14 @@ render(){
     <Row>
         
     <Row>
-    {isFetched&&data.data.map(v=>(
+    {
+    !this.props.isLoading&&
+    this.props.items.data.map(v=>(
       <Col sm="3" key={v.id_item} style={{ marginBottom:15, borderRadius:20}}>
-      <Card>
-        <CardImg top width="100%" src={APP_URL.concat(`src/assets/${v.image}`)} alt="Card image cap" />
+      <Card style={{height:450}}>
+        <CardImg top width="100%" height="300" src={APP_URL.concat(`src/assets/${v.image}`)} alt="Card image cap" />
         <CardBody>
-          <CardTitle style={{fontSize:'14px'}}><b>{v.name_item}</b></CardTitle>
+          <CardTitle style={{fontSize:'12px'}}><b>{v.name_item}</b></CardTitle>
           <CardSubtitle style={{fontSize:'14px'}}>IDR {v.price}</CardSubtitle>
           <CardText style={{fontSize:'13px', marginBottom:10}}>{v.name_rest}</CardText>
           <Link style={{marginRight:'10px'}} className="btn btn-info" to={`/detailitem/${v.id_item}`}><icon className="fa fa-cart-plus mr-1" style={{color:'#fff'}}></icon></Link>
@@ -100,3 +108,11 @@ render(){
     )
 }
 }
+
+const mapStateToProps = state =>{
+  return{
+      items: state.items
+  }
+}
+
+export default connect (mapStateToProps) (Home)

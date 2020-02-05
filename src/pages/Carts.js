@@ -2,9 +2,11 @@ import React from 'react'
 import axios from 'axios'
 import {APP_URL} from '../resources/config'
 import {Link} from 'react-router-dom'
-import {CardText,CardTitle,Row, Col,Button, Container, Card,CardHeader, CardBody} from 'reactstrap'
+import {CardText,Row, Col,Button, Container, Card} from 'reactstrap'
 import Cookie from 'js-cookie'
 import Jwt from 'jwt-decode'
+import { getCart } from '../redux/action/cart'
+import { connect } from 'react-redux'
 
 const token = Cookie.get('token')
 let decode = ''
@@ -17,8 +19,11 @@ class Carts extends React.Component {
     super(props)
     this.state ={
       data: null,
+      id:decode.id,
+      id_item : null,
       isFetched:false,
-      subtotal:0
+      Subtotal:0,
+      isLoading:false
     }
   }
 
@@ -26,6 +31,7 @@ class Carts extends React.Component {
     const {id} = this.props.match.params
       const url = APP_URL.concat(`carts/${id}`)
       if(id == decode.id){
+        // this.props.dispatch(getCart(id))
       const item = await axios.get(url, {
         headers: {
             Authorization: 'Bearer ' + token
@@ -33,8 +39,9 @@ class Carts extends React.Component {
       })
       const {data} = item
       this.setState({data, isFetched:!this.state.isFetched})
-      this.setState({subtotal: data.subtotal})
-    }
+      this.setState({quantity: data.data.map( v=>(v.quantity))})
+      this.setState({Subtotal: data.Subtotal})
+}
   }
 
   buttonClickPlus = async(i)=>{
@@ -47,12 +54,12 @@ class Carts extends React.Component {
       return v
     })
   this.setState({item})
-  var subtotal = 0
+  var Subtotal = 0
   data.filter(v=>{
       var total1 = v.price * v.total_item
-      subtotal += total1;
+      Subtotal += total1;
   })
-  this.setState({subtotal: subtotal})
+  this.setState({Subtotal: Subtotal})
 }
 
   buttonClickMin = (i)=>{
@@ -65,12 +72,12 @@ class Carts extends React.Component {
         return v
       })
     this.setState({item})
-    var subtotal = 0
+    var Subtotal = 0
     data.filter(v=>{
         var total1 = v.price * v.total_item
-        subtotal += total1;
+        Subtotal += total1;
     })
-    this.setState({subtotal: subtotal})
+    this.setState({Subtotal: Subtotal})
   }
   
   deleteCart = async (id) =>{
@@ -91,12 +98,11 @@ class Carts extends React.Component {
       <Col md={12} >
       <div class="card" >
         <div class="card-body">
-                {isFetched&&
-        data.data.map((v,i)=>(
+        {isFetched&&data.data.map(v=>(
         <Row key={v.id_item}>         
           <Col md={2}>
           <hr/> 
-          <img src={APP_URL.concat(`src/assets/${v.image}`)} alt="" className="img-thumbnail"  />
+          <img src={APP_URL.concat(`src/assets/${v.image}`)} alt={v.name_item} className="img-thumbnail"  />
           </Col>
           <Col md={2} style={{marginTop:50}}>
           <CardText style={{fontSize:14, textAlign:'center'}}><b>{v.name_item}</b></CardText>
@@ -105,7 +111,7 @@ class Carts extends React.Component {
           <CardText style={{fontSize:14, textAlign:'center'}}><b>IDR {v.price}</b></CardText>
           </Col>
           <Col md={2} style={{marginTop:50}} >
-          <div key={v.id_item.toString} style={{textAlign:'center'}}>
+          <div key={v.id_item} style={{textAlign:'center'}}>
           <Button color='' onClick={()=>this.buttonClickMin(v.id_item)}
           disabled={this.state.qty <=1 ?true : false} 
           style={{height:36, width:35}} className="btn btn-outline-danger">-</Button>
@@ -141,7 +147,7 @@ class Carts extends React.Component {
 <Card body outline color="danger">
    <div class="card-body">
         <CardText>Total price:</CardText>
-        <CardText><b>IDR {this.state.subtotal}</b></CardText>
+        <CardText><b>IDR {this.state.Subtotal}</b></CardText>
         <Button color='success' style={{textAlign:'center', marginTop:20, fontSize:'12px'}}>CHECK OUT</Button>
          </div>
          </Card>       
@@ -154,6 +160,11 @@ class Carts extends React.Component {
       )
   }
 }
-export default Carts;
+const mapStateToProps = state =>{
+  return{
+      cart: state.cart
+  }
+}
 
+export default connect (mapStateToProps) (Carts)
 

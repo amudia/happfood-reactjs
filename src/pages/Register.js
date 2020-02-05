@@ -2,6 +2,8 @@ import React from 'react';
 import {APP_URL} from '../resources/config'
 import Axios from 'axios';
 import { Button, Container } from 'reactstrap';
+import {registerUser} from '../redux/action/register'
+import {connect} from 'react-redux'
 
 
 class Register extends React.Component{
@@ -9,19 +11,24 @@ class Register extends React.Component{
     super(props)
     this.onSubmit = this.onSubmit.bind(this);
     this.state={
-      name : "",
-      username:'',
-      password:'',
-    }
+          name : "",
+          username : "",
+          password : "",
+  }
   }
 
   async onSubmit (event){
     event.preventDefault();
-    const data = await Axios.post(APP_URL.concat('users/register/customer'),this.state)
-    console.log(data)
+    const name = await this.state.name
+    const username = await this.state.username
+    const password = await this.state.password
+    await this.props.dispatch(registerUser({name, username, password}))
+    alert('Account Success Created!')
+    // console.log(this.state)
+    // const data = await Axios.post(APP_URL.concat('user/registuser'),this.state)
+    console.log(registerUser)
     window.location = '/Login'
       }
-
   render(){
       return (
         <Container>
@@ -82,4 +89,10 @@ class Register extends React.Component{
 }
 
 
-export default Register;
+const mapStateToProps = state => {
+  return {
+    register: state.register
+  }
+}
+
+export default connect(mapStateToProps)(Register)
