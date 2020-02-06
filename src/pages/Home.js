@@ -78,7 +78,7 @@ render(){
         
     <Row>
     {
-    !this.props.isLoading&&
+    // !this.state.isLoading&&
     this.props.items.data.map(v=>(
       <Col sm="3" key={v.id_item} style={{ marginBottom:15, borderRadius:20}}>
       <Card style={{height:450}}>

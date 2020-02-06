@@ -4,7 +4,7 @@ import Axios from 'axios';
 import Cookie from 'js-cookie'
 import { Button, Container } from 'reactstrap';
 import {connect} from 'react-redux'
-import {logIn} from '../redux/action/login'
+// import {logIn} from '../redux/action/login'
 
 
 // const token = Cookie.get('token')
