@@ -6,9 +6,9 @@ import {CardText,CardTitle,Row, Col,Button, Container, Card,CardHeader, CardBody
 import { getDetails } from '../redux/action/Detail';
 import { getRiviews } from '../redux/action/Riviews'
 import { connect } from 'react-redux';
+import { getSuggest } from '../redux/action/Suggest'
 import Jwt from 'jwt-decode'
 import Cookie from 'js-cookie'
-import { getSuggest } from '../redux/action/Suggest'
 
 const peopleList ={
   wrapper: {
@@ -71,16 +71,12 @@ if(token){
 class DetailItem extends React.Component {
   constructor(props){
     super(props)
+    // this.onSubmit = this.onSubmit.bind(this);
     this.state ={
-      // data: null,
-      // datariview: null,
-      // isFetchedDataItem:false,
-      data : {},
       isLoading :false,
       qty:1,
-      // paramsId_item:null,
-      // suggest: null
-
+      isFetchedDataItem:false,
+      paramsId_item : null,
     }
   }
 
@@ -89,16 +85,20 @@ class DetailItem extends React.Component {
     this.props.dispatch(getDetails(id))
     this.props.dispatch(getRiviews(id))
     this.props.dispatch(getSuggest(id))
+    this.setState(
+      {isFetchedDataItem:true, paramsId_item : id})
+
   }
   
   addCart = async () =>{
     const id_user = decode.id
     const {id} = this.props.match.params
+    console.log(id)
     const url = APP_URL.concat(`carts`)
     await axios.post(url, {
         id_user : id_user,
         id_item : id,
-        qty : this.state.qty
+        total_item : this.state.qty
     },
     {headers: {
       Authorization: 'Bearer ' + token}})
@@ -114,6 +114,10 @@ class DetailItem extends React.Component {
 
   render() {
     const id_user = decode.id
+    const {paramsId_item } = this.state
+    if (paramsId_item != this.props.match.params.id && paramsId_item != null){
+        this.componentDidMount()
+    }
     return (
 <Container> 
     {
@@ -139,7 +143,7 @@ class DetailItem extends React.Component {
       disabled={this.state.qty <=1 ?true : false} style={{height:52, width:40}} className="btn btn-dark">-</Button>
       <input type="text" className="text-center" value={this.state.qty} style={{margin:6, width:'20%', height:50}} />         
       <Button onClick={this.buttonClickPlus} style={{height:52, width:40}}>+</Button><br/><br/><br/>
-      <Link to = {`/carts/${id_user}`} className="btn btn-info btn-sm">Add to cart</Link>
+      <Link to = {`/carts/${id_user}`} onClick = {this.addCart} type="submit" className="btn btn-info btn-sm">Add to cart</Link>
       </div>   
       </div>
       </div>
@@ -168,18 +172,16 @@ class DetailItem extends React.Component {
     )}
         </Card>
     </Col> 
-       {/* SHOWCASE */}
-
        <Col md={12} style={{paddingBottom:50 ,marginLeft:0, marginTop:10, marginRight:30, backgroundColor:'#fff'}} >
     <Card style={{marginTop:20,marginLeft:30, width:300}}>
         <CardHeader><a style={{font: 'italic bold 14px Georgia, serif'}}>Similar items</a></CardHeader>
     </Card>
     
+    <Row  style={{ padding:20}}>  
     {
     !this.props.suggest.isLoading&&
       this.props.suggest.data.map((v, i)=>(
-    <Row key={v.id_item} style={{ padding:20}}>  
-      <Col md={2}  className='shadow-sm' style={{marginLeft:24 , marginBottom:20, backgroundColor:'#fff'}}>
+      <Col md={2}  key={v.id_item} className='shadow-sm' style={{marginLeft:24 , marginBottom:20, backgroundColor:'#fff'}}>
       <div style={peopleList.wrapper}>
           <div style={peopleList.info}>
             <div style={peopleList.profileImg}>
@@ -198,10 +200,11 @@ class DetailItem extends React.Component {
               </div>
       </div>
       </Col>
-    </Row>
     )
     )}
+    </Row>
     </Col> 
+
      </Row>
       ))}
 </Container>    

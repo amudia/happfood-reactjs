@@ -31,7 +31,7 @@ class Carts extends React.Component {
     const {id} = this.props.match.params
       const url = APP_URL.concat(`carts/${id}`)
       if(id == decode.id){
-        // this.props.dispatch(getCart(id))
+        this.props.dispatch(getCart(id))
       const item = await axios.get(url, {
         headers: {
             Authorization: 'Bearer ' + token
