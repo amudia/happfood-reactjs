@@ -14,9 +14,17 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Screenshots
 
-### Desktop
 <p align="center">
 <img src="./screenshoots/1.png">
+</p>
+<p align="center">
+<img src="./screenshoots/2.png">
+</p>
+<p align="center">
+<img src="./screenshoots/3.png">
+</p>
+<p align="center">
+<img src="./screenshoots/4.png">
 </p>
 
 ## Developing
