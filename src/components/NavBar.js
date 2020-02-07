@@ -118,11 +118,7 @@ class NavBar extends Component {
             </Nav>
             <Nav navbar style={{paddingRight:'150px'}}>
 
-          <NavItem>
-            <Link className="nav-link" style={{ color:'#fff', marginLeft:5, fontSize:30}} to={`/Carts/${this.state.id}`}>
-            <icon className="fa fa-shopping-cart mr-1" ></icon>
-            </Link>
-            </NavItem>
+ 
             <NavItem>
             </NavItem>
             {!token?
@@ -140,6 +136,16 @@ class NavBar extends Component {
             <NavItem>
             <Button onClick={() => {this.logout(); }} type='submit' value = 'submit' color="danger" style={{color:'#dd4045', marginLeft:5, marginTop:15,borderColor:'#dd4045', backgroundColor:'#fff',fontSize:11}}><b>LOGOUT</b></Button>
             </NavItem>
+            <NavItem>
+            <Link className="nav-link" style={{ color:'#fff', marginLeft:5, fontSize:30}} to={`/Profile/${this.state.id}`}>
+            <icon className="fa fa-user-circle mr-1" ></icon>
+            </Link>
+          </NavItem>
+          <NavItem>
+            <Link className="nav-link" style={{ color:'#fff', marginLeft:5, fontSize:30}} to={`/Carts/${this.state.id}`}>
+            <icon className="fa fa-shopping-cart mr-1" ></icon>
+            </Link>
+          </NavItem>
             </Nav>
   }
           </Nav>

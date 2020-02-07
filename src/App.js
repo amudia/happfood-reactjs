@@ -11,6 +11,8 @@ import Carts from './pages/Carts'
 import Menu from './pages/Menu'
 import Detailrestaurant from './pages/Detailrestaurant'
 import Restaurants from './pages/Restaurants'
+import Profile from './pages/Profile'
+import Editprofile from './pages/Editprofile'
 
 
 
@@ -52,6 +54,8 @@ export default class App extends Component {
           <Route path='/detailrestaurant/:id' exact component={Detailrestaurant}/>
           <Route path='/restaurants/menu/:id' exact component={Menu}/>
           <Route path='/Carts/:id' exact component={Carts}/>
+          <Route path='/Profile/:id' exact component={Profile}/>
+          <Route path='/Editprofile/:id' exact component={Editprofile}/>
         </Switch>
         <Footer/>
       </Router>

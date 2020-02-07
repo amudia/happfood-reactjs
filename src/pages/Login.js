@@ -4,15 +4,10 @@ import Axios from 'axios';
 import Cookie from 'js-cookie'
 import { Button, Container } from 'reactstrap';
 import {connect} from 'react-redux'
-// import {logIn} from '../redux/action/login'
-
-
-// const token = Cookie.get('token')
 
 class Login extends React.Component{
   constructor(props){
     super(props)
-    // this.onSubmit = this.onSubmit.bind(this);
     this.state={
       username:"",
       password:"",
@@ -20,16 +15,6 @@ class Login extends React.Component{
     }
   }
 
-  // async onSubmit(event){
-  //   event.preventDefault();
-  //   const username = await this.state.username
-  //   const password = await this.state.password
-  //   await this.props.dispatch(logIn({username, password}))
-  //   // const data = await Axios.post(  APP_URL.concat('user/login'),this.state)
-  //   // console.log(this.props);
-  //   Cookie.set('token', this.props.login.data )
-  //   window.location = '/'
-  // }
   login = async () => {
     
     const url = APP_URL.concat(`users/login`)
