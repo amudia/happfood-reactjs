@@ -8,7 +8,7 @@
 <a href="#"><img src="https://img.shields.io/badge/redux-4.0.5-informational.svg?style=flat-square" alt="redux version"></a>
 </p>
 
-Fodel React is an Online Food Delivery Web Front-End built using ReactJS Framework and Integrated with Fodel-API as the Back-End.
+Happ Food is an Online Food Delivery Web Front-End built using ReactJS Framework and Integrated with Fodel-API as the Back-End.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
