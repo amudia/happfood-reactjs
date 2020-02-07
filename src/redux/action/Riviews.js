@@ -8,3 +8,11 @@ export const getRiviews = (id) => {
         payload: axios.get(url)
     }
 }
+
+export const postRiviews = (id_item,id_user,riview,rating)=>{
+    console.log(id_item,id_user,riview,rating)
+    return {
+      type: 'POST_RIVIEWS',
+      payload: axios.post(APP_URL,{id_item,id_user,riview,rating})
+    }
+  }

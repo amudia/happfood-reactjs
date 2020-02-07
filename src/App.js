@@ -8,6 +8,8 @@ import Login from './pages/Login'
 import DetailItem from './pages/DetailItem'
 import Register from './pages/Register'
 import Carts from './pages/Carts'
+import Checkout from './pages/Checkout'
+import Riview from './pages/Riview'
 import Menu from './pages/Menu'
 import Detailrestaurant from './pages/Detailrestaurant'
 import Restaurants from './pages/Restaurants'
@@ -54,7 +56,9 @@ export default class App extends Component {
           <Route path='/detailrestaurant/:id' exact component={Detailrestaurant}/>
           <Route path='/restaurants/menu/:id' exact component={Menu}/>
           <Route path='/Carts/:id' exact component={Carts}/>
+          <Route path='/Checkout/:id' exact component={Checkout}/>
           <Route path='/Profile/:id' exact component={Profile}/>
+          <Route path='/Riview/:id' exact component={Riview}/>
           <Route path='/Editprofile/:id' exact component={Editprofile}/>
         </Switch>
         <Footer/>

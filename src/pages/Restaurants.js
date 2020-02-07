@@ -10,30 +10,36 @@ import {
   CardImg, 
   CardBody, 
 CardTitle } from 'reactstrap';
+import { getRestaurants } from '../redux/action/restaurants'
+import { connect } from 'react-redux'
+
   
 
 class Restaurants extends React.Component{
     constructor(props){
         super(props)
         this.state={
-            data : {},
-            isFetched : false
+            data : [],
+            isFetched : false,
+            isLoading :false,
+
         }
     }
 
     async componentDidMount(){
-        const {data}=await axios.get(APP_URL.concat('restaurants'))
-        this.setState({data, isFetched:!this.state.isFetched})
+      this.props.dispatch(getRestaurants())
+      this.setState({isLoading:true})
     }
 
     render(){
-    const {isFetched, data}=this.state
     return(
         <Container>
        
     <Row>       
     <Row>
-    {isFetched&&data.data.map(v=>(
+    {
+    // !this.state.isLoading&&
+    this.props.restaurants.data.map(v=>(
       <Col sm="3" key={v.id_restaurant} style={{ marginBottom:15, borderRadius:20}}>
       <Card>
         <CardImg top style={{width:"100%", height:"150px"}} src={APP_URL.concat(`src/assets/${v.logo}`)} alt="Card image cap"/>
@@ -55,4 +61,10 @@ class Restaurants extends React.Component{
     }
 }
 
-export default Restaurants;
+const mapStateToProps = state =>{
+  return{
+      restaurants: state.restaurants
+  }
+}
+
+export default connect (mapStateToProps) (Restaurants)

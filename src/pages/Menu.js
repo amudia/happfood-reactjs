@@ -10,6 +10,9 @@ import {
     UncontrolledDropdown, 
     DropdownToggle, 
     DropdownMenu } from 'reactstrap';
+import { getMenu } from '../redux/action/Menu'
+import { connect } from 'react-redux';
+
   
 const peopleList={
   wrapper: {
@@ -65,18 +68,18 @@ class Menu extends React.Component{
     constructor(props){
         super(props)
         this.state={
-            data : {},
-            isFetched : false
-        }
+            data: null,
+            isFetchedDataRest:false,
+            paramsId_item:null,
+            }
     }
 
     async componentDidMount(){
         const {id} =this.props.match.params
-        const url =APP_URL.concat(`restaurants/menu/${id}`)
-        const item =await axios.get(url)
-        const {data} =item        
-        this.setState({data, isFetched:!this.state.isFetched})
-    }
+        this.props.dispatch(getMenu(id))
+        this.setState(
+          {isFetchedDataItem:true, paramsId_item : id})
+        }
 
     prevButton=async()=>{
         const url=this.state.data.info.prev
@@ -95,7 +98,6 @@ class Menu extends React.Component{
     }
 
     render(){
-    const {isFetched, data}=this.state
     return(
 <Container style={{backgroundColor:"#fafefa"}}> 
     <div style={{backgroundColor:"#fff"}}>
@@ -105,7 +107,8 @@ class Menu extends React.Component{
                     <Col md={12} style={{marginLeft:'20px'}}>
                         <Row style={{backgroundColor:'#fafefa', padding:10, paddingBottom:20}} >
                             <Row>
-                    {isFetched&&data.data.map(v=>(
+                        {
+                    this.props.menu.data.map((v, i)=>(
                     <Col md={3} key={v.id_item} className='shadow-sm' style={{borderRadius:'30px', marginRight:'10px', marginBottom:20, backgroundColor:'#fff'}}>                     
                         <div style={peopleList.wrapper}>
                             <div style={peopleList.info}>
@@ -140,4 +143,12 @@ class Menu extends React.Component{
     }
 }
 
-export default Menu;
+const mapStateToProps = state =>{
+    return{
+      menu : state.menu,
+    }
+  }
+  
+  
+  export default connect (mapStateToProps) (Menu)
+  

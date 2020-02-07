@@ -57,7 +57,8 @@ const peopleList ={
       border: '0px solid #ccc',
       padding: '10px',
       cursor: 'pointer'
-    }
+    },
+    textjudul:{font: 'italic bold 14px Georgia, serif'}
 }
 
 
@@ -71,7 +72,6 @@ if(token){
 class DetailItem extends React.Component {
   constructor(props){
     super(props)
-    // this.onSubmit = this.onSubmit.bind(this);
     this.state ={
       isLoading :false,
       qty:1,
@@ -115,6 +115,7 @@ class DetailItem extends React.Component {
   render() {
     const id_user = decode.id
     const {paramsId_item } = this.state
+    // eslint-disable-next-line eqeqeq
     if (paramsId_item != this.props.match.params.id && paramsId_item != null){
         this.componentDidMount()
     }
@@ -152,7 +153,7 @@ class DetailItem extends React.Component {
                 <br/>
           <Card style={{paddingBottom:'20px'}}>
       <Card style={{marginTop:20,marginLeft:30, width:300}}>
-        <CardHeader><a style={{font: 'italic bold 14px Georgia, serif'}}>Riviews</a></CardHeader>
+        <CardHeader><text style={peopleList.textjudul}>Riviews</text></CardHeader>
       </Card>
     {
     !this.props.riviews.isLoading&&
@@ -174,7 +175,7 @@ class DetailItem extends React.Component {
     </Col> 
        <Col md={12} style={{paddingBottom:50 ,marginLeft:0, marginTop:10, marginRight:30, backgroundColor:'#fff'}} >
     <Card style={{marginTop:20,marginLeft:30, width:300}}>
-        <CardHeader><a style={{font: 'italic bold 14px Georgia, serif'}}>Similar items</a></CardHeader>
+        <CardHeader><text style={peopleList.textjudul}>Similar items</text></CardHeader>
     </Card>
     
     <Row  style={{ padding:20}}>  
@@ -192,7 +193,7 @@ class DetailItem extends React.Component {
               </div>
               <div style={peopleList.centerizeCol}>
                 <span style={peopleList.addText}>IDR. {v.price}</span>
-                <span style={peopleList.addText} style={{fontSize:"10px"}} >{v.name_rest}</span>
+                <span style={peopleList.addText} >{v.name_rest}</span>
               </div>
           </div>
               <div style={{...peopleList.centerizeRow,...peopleList.msgBox}}>

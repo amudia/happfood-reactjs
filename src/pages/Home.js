@@ -17,11 +17,8 @@ class Home extends Component {
         }
     }
     async componentDidMount(){
-      // const {data}=await axios.get(APP_URL.concat('items'))
       this.props.dispatch(getItems())
       this.setState({isLoading:true})
-
-      // this.setState({data, isFetched:!this.state.isFetched})
     }
 
     prevButton = async()=>{
@@ -43,7 +40,6 @@ class Home extends Component {
     }
 
 render(){
-  const {isFetched, data}=this.state
     return(
 <Container >
     <Row>
@@ -81,8 +77,8 @@ render(){
     // !this.state.isLoading&&
     this.props.items.data.map(v=>(
       <Col sm="3" key={v.id_item} style={{ marginBottom:15, borderRadius:20}}>
-      <Card style={{height:450}}>
-        <CardImg top width="100%" height="300" src={APP_URL.concat(`src/assets/${v.image}`)} alt="Card image cap" />
+      <Card style={{height:400}}>
+        <CardImg top width="100%" height="250" src={APP_URL.concat(`src/assets/${v.image}`)} alt="Card image cap" />
         <CardBody>
           <CardTitle style={{fontSize:'12px'}}><b>{v.name_item}</b></CardTitle>
           <CardSubtitle style={{fontSize:'14px'}}>IDR {v.price}</CardSubtitle>

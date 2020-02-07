@@ -26,6 +26,26 @@ const riviews = (state = initialState, action) => {
                 isLoading:false,
                 isError:false,
                   }
+        case 'POST_RIVIEWS_PENDING':
+        return {
+            ...state,
+            isLoading: true,
+            isError: false,
+        }
+        case 'POST_RIVIEWS_REJECTED':
+        return {
+            ...state,
+            isLoading: false,
+            isError: true
+        }
+        case 'POST_RIVIEWS_FULFILLED':
+        return {
+            ...state,
+            data: action.payload.data.data,
+            isLoading:false,
+            isError:false,
+
+        }
         default :
         return state
     }
