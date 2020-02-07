@@ -1,10 +1,41 @@
+<h1 align="center">Fodel React - Food Delivery Web Front-End</h1>
+
+<p align="center">
+<a href="#"><img src="https://img.shields.io/badge/npm-6.13.4-brightgreen.svg?style=flat-square" alt="npm version">
+</a>
+<a href="#"><img src="https://img.shields.io/badge/node.js-12.14.0-blue.svg?style=flat-square" alt="node.js version"></a>
+<a href="#"><img src="https://img.shields.io/badge/react-16.12.0-green.svg?style=flat-square" alt="react version"></a>
+<a href="#"><img src="https://img.shields.io/badge/redux-4.0.5-informational.svg?style=flat-square" alt="redux version"></a>
+</p>
+
+Fodel React is an Online Food Delivery Web Front-End built using ReactJS Framework and Integrated with Fodel-API as the Back-End.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Screenshots
+
+### Desktop
+<p align="center">
+<img src="">
+</p>
+
+### Mobile
+<p align="center">
+<img src="">
+</p>
+
+## Developing
+1. Open your terminal or command prompt
+2. Type `git clone https://github.com/amudia/happfood-reactjs.git`
+3. Open the project directory and Type `npm install` to install all dependencies
+4. Type `npm start` in the terminal or command prompt to run the App
+5. Open `http://localhost:3000` to view the running App
 
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `yarn start`
+### `npm start`
 
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -12,12 +43,12 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
-### `yarn test`
+### `npm test`
 
 Launches the test runner in the interactive watch mode.<br />
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+### `npm run build`
 
 Builds the app for production to the `build` folder.<br />
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -27,7 +58,7 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+### `npm run eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
@@ -63,6 +94,6 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/ad
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
 
-### `yarn build` fails to minify
+### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
