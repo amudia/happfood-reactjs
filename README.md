@@ -1,4 +1,4 @@
-<h1 align="center">Fodel React - Food Delivery Web Front-End</h1>
+<h1 align="center">Happ Food - Food Delivery Web Front-End</h1>
 
 <p align="center">
 <a href="#"><img src="https://img.shields.io/badge/npm-6.13.4-brightgreen.svg?style=flat-square" alt="npm version">
