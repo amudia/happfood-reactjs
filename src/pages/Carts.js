@@ -83,14 +83,20 @@ class Carts extends React.Component {
     this.setState({Subtotal: Subtotal})
   }
   
-  deleteCart = async (id) =>{
-    const id_user = decode.id
-    const url = APP_URL.concat(`carts/delete`)
-    console.log(id_user,id)
-    await axios.delete(url,{ data: { id_user: id_user, id_item: id }})
-    this.setState({isFetched: false})
+  deleteCart = async (id_cart) =>{
+    const url = APP_URL.concat(`carts/${id_cart}`)
+    console.log(id_cart)
+    await axios.delete(url)
+    this.setState({isFetchedDataItem: false})
+    console.log(this.state.isFetchedDataItem)
     this.componentDidMount();
+    alert('Thanks')
   }
+
+  handleChange = (event,i)=>{
+    this.setState({total_item: event.target.total_item[i]})
+  }
+
   render() {
     return (
 <Container>
@@ -117,7 +123,7 @@ class Carts extends React.Component {
           <Button color='' onClick={()=>this.buttonClickMin(v.id_item)}
           disabled={this.state.qty <=1 ?true : false} 
           style={{height:36, width:35}} className="btn btn-outline-danger">-</Button>
-          <input type="text" className="text-center" value={v.total_item} style={{ width:'40%', height:35}} />         
+          <input type="text" className="text-center" onChange={this.handleChange[v.id_item]} value={v.total_item} style={{ width:'40%', height:35}} />         
           <Button color='' onClick={()=>this.buttonClickPlus(v.id_item, v.total_item, v.price)} 
           style={{height:36, width:35}} className="btn btn-outline-danger">+</Button><br/><br/><br/>
           </div>
@@ -126,7 +132,7 @@ class Carts extends React.Component {
           <CardText style={{fontSize:14, textAlign:'center'}}><b>IDR {v.price * v.total_item}</b></CardText>
           </Col>
           <Col md={1}>
-          <Button onClick = {()=>this.deleteCart(v.id_item)} color='danger' style={{textAlign:'center', marginTop:50}}><icon className="fa fa-trash text-center"></icon></Button>
+          <Button onClick = {()=>this.deleteCart(v.id_cart)} color='danger' style={{textAlign:'center', marginTop:50}}><icon className="fa fa-trash text-center"></icon></Button>
           </Col>
         </Row>
           ))}  

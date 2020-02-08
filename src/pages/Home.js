@@ -70,7 +70,6 @@ render(){
     </Col>
     </Row>
     <hr/>
-    <Row>
         
     <Row>
     {
@@ -88,18 +87,16 @@ render(){
       </Card>
       </Col>
       ))}
-      
     </Row>
-    </Row>
-    <Row className='mt-5 mb-5'>
-                <Col md={6} className='text-center'>
-                    <Button onClick={this.prevButton} color='primary' style={{fontSize:'12px'}}> Previous </Button>
-                </Col>
-                <Col md={6} className='text-center'>
-                    <Button onClick={this.nextButton} color='primary' style={{fontSize:'12px'}}> Next </Button>
-                </Col>
-        </Row>
 
+    <Row className='mt-5 mb-5'>
+      <Col md={6} className='text-center'>
+          <Button onClick={this.prevButton} color='primary' style={{fontSize:'12px'}}> Previous </Button>
+      </Col>
+      <Col md={6} className='text-center'>
+          <Button onClick={this.nextButton} color='primary' style={{fontSize:'12px'}}> Next </Button>
+      </Col>
+    </Row>
 </Container>
     )
 }

@@ -13,6 +13,6 @@ export const postRiviews = (id_item,id_user,riview,rating)=>{
     console.log(id_item,id_user,riview,rating)
     return {
       type: 'POST_RIVIEWS',
-      payload: axios.post(APP_URL,{id_item,id_user,riview,rating})
+      payload: axios.post(APP_URL.concat('riviews/input'),{id_item,id_user,riview,rating})
     }
   }

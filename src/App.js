@@ -51,6 +51,9 @@ export default class App extends Component {
           <Route path='/Restaurants' exact>
             <Restaurants/>
           </Route>
+          <Route path='/Riview' exact>
+            <Riview/>
+          </Route>
 
           <Route path='/detailitem/:id' exact component={DetailItem}/>
           <Route path='/detailrestaurant/:id' exact component={Detailrestaurant}/>
