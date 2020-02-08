@@ -1,7 +1,7 @@
 import React from 'react';
 import {APP_URL} from '../resources/config'
 import Axios from 'axios';
-import { Button, Container, FormGroup, Label, Input, FormText, } from 'reactstrap';
+import {  Container} from 'reactstrap';
 import {Link} from 'react-router-dom'
 import Cookie from 'js-cookie'
 import Jwt from 'jwt-decode'
@@ -24,6 +24,7 @@ class Profile extends React.Component{
   async componentDidMount(){
       const {id} = this.props.match.params
       const url = APP_URL.concat(`users/${id}`)
+      // eslint-disable-next-line eqeqeq
       if(id == decode.id){
           const users = await Axios.get(url, {
               headers: {
@@ -37,6 +38,7 @@ class Profile extends React.Component{
   }
 
   render(){
+    // eslint-disable-next-line no-unused-vars
     const id = decode.id
     const {isFetched, data}=this.state
       return (

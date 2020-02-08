@@ -46,7 +46,6 @@ class Checkout extends React.Component {
   }
 
   render() {
-    const id = decode.id
     return (
 <Container>
   <Row >

@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from 'axios'
 import {Link} from 'react-router-dom'
 import {APP_URL} from '../resources/config'
 import {
@@ -45,8 +44,8 @@ class Restaurants extends React.Component{
         <CardImg top style={{width:"100%", height:"150px"}} src={APP_URL.concat(`src/assets/${v.logo}`)} alt="Card image cap"/>
         <CardBody style={{height:'100px'}}>
           <CardTitle style={{fontSize:'10px'}}><b>{v.name_rest}</b></CardTitle>
-          <Link style={{marginRight:'10px'}} className="btn btn-info" to={`/restaurants/menu/${v.id_restaurant}`}><a style={{fontSize:'12px'}}>Menu</a></Link>
-          <Link style={{marginRight:'10px'}} className="btn btn-info" to={`/detailrestaurant/${v.id_restaurant}`}><a style={{fontSize:'12px'}}>Detail</a></Link>
+          <Link style={{marginRight:'10px', fontSize:12}} className="btn btn-info" to={`/restaurants/menu/${v.id_restaurant}`}>Menu</Link>
+          <Link style={{marginRight:'10px', fontSize:12}} className="btn btn-info" to={`/detailrestaurant/${v.id_restaurant}`}>Detail</Link>
         </CardBody>
       </Card>
       </Col>

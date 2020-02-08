@@ -1,61 +1,8 @@
 import React from 'react'
-import axios from 'axios'
 import {APP_URL} from '../resources/config'
-import {Link} from 'react-router-dom'
-import {CardText,CardTitle,Row, Col,Button, Container, Card,CardHeader, CardBody} from 'reactstrap'
+import {CardText,CardTitle,Row, Col, Container} from 'reactstrap'
 import { getDetailrestaurant } from '../redux/action/Detailrestaurant'
 import { connect } from 'react-redux';
-
-const peopleList ={
-  wrapper: {
-      display: 'flex',
-      flexDirection: 'column',
-      marginTop: '10px'
-    },
-    info: {
-      border: '0px solid #ccc',
-      borderBottom: 0,
-    },
-    bold:{
-      fontWeight: 'bold',
-      color: '#0073b1',
-      fontSize: 13
-    },
-    profileImg: {
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center'
-    },
-    img: {
-      alignItems: 'center',
-      width: '150px',
-      height: '150px',
-    },
-    centerizeRow: {
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center'
-    },
-    centerizeCol: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      height: '50px'
-    },
-    addText: {
-      color: '#000',
-      fontSize: '12px',
-      fontWeight:'bold'
-    },
-    msgBox: {
-      border: '0px solid #ccc',
-      padding: '10px',
-      cursor: 'pointer'
-    }
-}
-
 
 class Detailrestaurant extends React.Component {
   constructor(props){

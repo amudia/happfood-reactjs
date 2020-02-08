@@ -82,12 +82,10 @@ class NavBar extends Component {
     this.props.toggleSidebar()
   }
   render() {
-    const id = decode.id
-    {console.log(id)}
     return (
         <div>
         <Navbar color="light" light expand="md">
-          <NavbarBrand href="/" style={{fontSize:30}}><a style={{fontSize:'20px'}}><i>happ</i></a><b><i>food</i></b></NavbarBrand>
+          <NavbarBrand href="/" style={{fontSize:20}}><i>happ</i><b><i>food</i></b></NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="mr-auto" navbar>
@@ -138,12 +136,12 @@ class NavBar extends Component {
             </NavItem>
             <NavItem>
             <Link className="nav-link" style={{ color:'#fff', marginLeft:5, fontSize:30}} to={`/Profile/${this.state.id}`}>
-            <icon className="fa fa-user-circle mr-1" ></icon>
+            <i className="fa fa-user-circle mr-1" ></i>
             </Link>
           </NavItem>
           <NavItem>
             <Link className="nav-link" style={{ color:'#fff', marginLeft:5, fontSize:30}} to={`/Carts/${this.state.id}`}>
-            <icon className="fa fa-shopping-cart mr-1" ></icon>
+            <i className="fa fa-shopping-cart mr-1" ></i>
             </Link>
           </NavItem>
             </Nav>

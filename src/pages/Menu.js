@@ -3,13 +3,8 @@ import axios from 'axios'
 import {Link} from 'react-router-dom'
 import {APP_URL} from '../resources/config'
 import {
-    InputGroupAddon,
     Row, Col, 
-    Container, Button, 
-    DropdownItem, 
-    UncontrolledDropdown, 
-    DropdownToggle, 
-    DropdownMenu } from 'reactstrap';
+    Container } from 'reactstrap';
 import { getMenu } from '../redux/action/Menu'
 import { connect } from 'react-redux';
 
@@ -125,8 +120,8 @@ class Menu extends React.Component{
                         
                         <div style={{...peopleList.centerizeRow,...peopleList.msgBox}}>
                         <Link style={{marginRight:'10px'}} className="btn btn-info" to={`/detailitem/${v.id}`}>
-                        <icon className="fa fa-cart-plus mr-1" style={{color:'#fff'}}>
-                        </icon>
+                        <i className="fa fa-cart-plus mr-1" style={{color:'#fff'}}>
+                        </i>
                         </Link>
                             </div>
                         </div>

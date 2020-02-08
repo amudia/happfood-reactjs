@@ -1,6 +1,4 @@
 import React from 'react';
-import {APP_URL} from '../resources/config'
-import Axios from 'axios';
 import { Button, Container } from 'reactstrap';
 import {registerUser} from '../redux/action/register'
 import {connect} from 'react-redux'
@@ -64,7 +62,6 @@ class Register extends React.Component{
                                 <div className="form-check">
                                   <input className="form-check-input" type="checkbox" value="" id="updatecheck1"/>
                                   <label className="form-check-label" for="updatecheck1">
-                                    <small>By submitting this form you agree to our <a href="#">terms and conditions </a> </small>
                                     
                                   </label>
                                 </div>

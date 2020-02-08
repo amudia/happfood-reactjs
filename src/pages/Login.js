@@ -68,25 +68,12 @@ class Login extends React.Component{
                               <input type="password"  placeholder="Password" className="form-control" value={password} onChange={(e) => this.setState({ password: e.target.value })}/>
                             </div>
                           </div>
-                         <div className="form-row">
-                        <div className="form-group">
-                                <div className="form-check">
-                                  <input className="form-check-input" type="checkbox" value="" id="updatecheck1"/>
-                                  <label className="form-check-label" for="updatecheck1">
-                                    <small>By submitting this form you agree to our <a href="#">terms and conditions </a> </small>
-                                    
-                                  </label>
-                                </div>
-                              </div>
-                    </div>                        
+                      
                         
                         <div className="form-row">
                         <Button type="button" className="btn btn-danger btn-block" onClick={() => {this.login(); }}>Login</Button>
                         </div>
                     </form>
-	                </div>
-	                <div className="logi-forgot text-right mt-2">
-	                    <a href="#">Reset Password </a>
 	                </div>
 	            </div>
 	        </div>

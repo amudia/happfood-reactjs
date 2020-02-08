@@ -26,6 +26,25 @@ const initialState = {
           isLoading:false,
           isError:false,
         }
+        case 'GET_NEXT_ITEMS_PENDING':
+          return {
+            ...state,
+            isLoading: true,
+            isError: false,
+          }
+        case 'GET_NEXT_ITEMS_REJECTED':
+          return {
+            ...state,
+            isLoading: false,
+            isError: true
+          }
+        case 'GET_NEXT_ITEMS_FULFILLED':
+          return {
+              ...state,
+            data: action.payload.data.data,
+            isLoading:false,
+            isError:false,
+          }
         default :
           return state
     }

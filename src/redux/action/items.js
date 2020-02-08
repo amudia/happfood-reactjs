@@ -8,4 +8,11 @@ export const getItems = ()=>{
         payload: axios.get(url)
         }
     }
-
+    export const nextItems = (nextURL)=>{ 
+        const url = APP_URL.concat(`${nextURL}`)
+        return {
+            type: 'GET_NEXT_ITEMS',
+            payload: axios.get(url)
+            }
+        }
+    

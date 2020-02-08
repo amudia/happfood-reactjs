@@ -127,7 +127,7 @@ class DetailItem extends React.Component {
      <Row key={v.id_item}>
      <Col  md={11} style={{paddingBottom:20 ,marginLeft:30, marginTop:30, marginRight:30}}>
      <hr/>
-      <div className="mb-3 mt-3 ml-3 mr-3" body>
+      <div className="mb-3 mt-3 ml-3 mr-3">
       <div className="row">
       <div style={{textAlign:"center", marginTop:60}} className="col-md-6">
       <img src={APP_URL.concat(`src/assets/${v.image}`)} alt="" className="imgDetailItem" width="300px" height="300px" style={{textAlign:"center"}} />
@@ -159,11 +159,11 @@ class DetailItem extends React.Component {
     !this.props.riviews.isLoading&&
       this.props.riviews.data.map((v, i)=>(
 
-      <Col md ={11} style={{paddingBottom:1 ,marginLeft:30, marginTop:10, marginRight:30, backgroundColor:'#fff', borderRadius:20}}>
+      <Col md ={11} key={i} style={{paddingBottom:1 ,marginLeft:30, marginTop:10, marginRight:30, backgroundColor:'#fff', borderRadius:20}}>
       <Card body outline color="success" style={{marginTop:10}}>
           <CardBody>
             <CardTitle style={{fontSize:'12px'}}><b>{v.username}</b> </CardTitle>
-            <CardText md key={v.id_item} style={{fontSize:'12px'}}><i>{v.riview}</i> </CardText>
+            <CardText key={v.id_item} style={{fontSize:'12px'}}><i>{v.riview}</i> </CardText>
           </CardBody>
         </Card> 
         </Col> 
@@ -197,7 +197,7 @@ class DetailItem extends React.Component {
               </div>
           </div>
               <div style={{...peopleList.centerizeRow,...peopleList.msgBox}}>
-                <Link style={{marginRight:'10px'}} className="btn btn-info" to={`/detailitem/${v.id_item}`}><icon className="fa fa-cart-plus mr-1" style={{color:'#fff'}}></icon></Link>
+                <Link style={{marginRight:'10px'}} className="btn btn-info" to={`/detailitem/${v.id_item}`}><i className="fa fa-cart-plus mr-1" style={{color:'#fff'}}></i></Link>
               </div>
       </div>
       </Col>
