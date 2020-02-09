@@ -15,16 +15,16 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Screenshots
 
 <p align="center">
-<img src="./screenshoots/1.png">
+<img src="./screenshoots/5.png">
 </p>
 <p align="center">
-<img src="./screenshoots/2.png">
+<img src="./screenshoots/6.png">
 </p>
 <p align="center">
-<img src="./screenshoots/3.png">
+<img src="./screenshoots/7.png">
 </p>
 <p align="center">
-<img src="./screenshoots/4.png">
+<img src="./screenshoots/8.png">
 </p>
 
 ## Developing

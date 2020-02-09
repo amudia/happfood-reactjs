@@ -110,14 +110,15 @@ class Carts extends React.Component {
   render() {
     return (
 <Container>
-      {!this.props.cart.isLoading&&
-      this.props.cart.data&&
-      this.props.cart.data.map((v, i)=>(
-    <Row key={v.id_item} >  
+    <Row  >  
+
       <Col md={12}  >
       <div className="card" >
         <div className="card-body">
-        <Row>         
+        {!this.props.cart.isLoading&&
+      this.props.cart.data&&
+      this.props.cart.data.map((v, i)=>(
+        <Row key={v.id_item}>         
           <Col md={2}>
           <hr/> 
           <img src={APP_URL.concat(`src/assets/${v.image}`)} alt={v.name_item} className="img-thumbnail"  />
@@ -145,11 +146,12 @@ class Carts extends React.Component {
           <Button onClick = {()=>this.deleteCart(v.id_cart)} color='danger' style={{textAlign:'center', marginTop:50}}><i className="fa fa-trash text-center"></i></Button>
           </Col>
         </Row>
+         ))}
+
         </div>
       </div>
       </Col>
  
-
 
       <Col md={2} style={{marginTop:'20px'}}>
       <div className="card">
@@ -170,7 +172,7 @@ class Carts extends React.Component {
          </Card>       
       </Col>
     </Row>
-          ))}
+         
   
   </Container>
       )
