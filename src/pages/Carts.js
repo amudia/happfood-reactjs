@@ -23,7 +23,8 @@ class Carts extends React.Component {
       id_item : null,
       isFetched:false,
       Subtotal:0,
-      isLoading:false
+      isLoading:false,
+      isFetchedDataItem:false
     }
   }
 
@@ -83,9 +84,18 @@ class Carts extends React.Component {
     this.setState({Subtotal: Subtotal})
   }
   
-  deleteCart = async (id_cart) =>{
-    const url = APP_URL.concat(`carts/${id_cart}`)
-    console.log(id_cart)
+  // deleteCart = async (id) =>{
+  //   const id_user = decode.id
+  //   const url = APP_URL.concat(`carts/detele/`)
+  //   await axios.delete(url,{ data: { id_item: id, id_user : id_user }})
+  //   this.setState({isFetchedDataItem: false})
+  //   this.componentDidMount();
+  //   alert('Thanks')
+  // }
+
+  deleteCart = async (id) =>{
+    const url = APP_URL.concat(`carts/${id}`)
+    console.log(id)
     await axios.delete(url)
     this.setState({isFetchedDataItem: false})
     console.log(this.state.isFetchedDataItem)
@@ -100,14 +110,14 @@ class Carts extends React.Component {
   render() {
     return (
 <Container>
-  <Row >
-  
-      <Col md={12} >
-      <div class="card" >
-        <div class="card-body">
-        {!this.props.cart.isLoading&&
+      {!this.props.cart.isLoading&&
+      this.props.cart.data&&
       this.props.cart.data.map((v, i)=>(
-        <Row key={v.id_item}>         
+    <Row key={v.id_item} >  
+      <Col md={12}  >
+      <div className="card" >
+        <div className="card-body">
+        <Row>         
           <Col md={2}>
           <hr/> 
           <img src={APP_URL.concat(`src/assets/${v.image}`)} alt={v.name_item} className="img-thumbnail"  />
@@ -132,10 +142,9 @@ class Carts extends React.Component {
           <CardText style={{fontSize:14, textAlign:'center'}}><b>IDR {v.price * v.total_item}</b></CardText>
           </Col>
           <Col md={1}>
-          <Button onClick = {()=>this.deleteCart(v.id_cart)} color='danger' style={{textAlign:'center', marginTop:50}}><icon className="fa fa-trash text-center"></icon></Button>
+          <Button onClick = {()=>this.deleteCart(v.id_cart)} color='danger' style={{textAlign:'center', marginTop:50}}><i className="fa fa-trash text-center"></i></Button>
           </Col>
         </Row>
-          ))}  
         </div>
       </div>
       </Col>
@@ -143,8 +152,8 @@ class Carts extends React.Component {
 
 
       <Col md={2} style={{marginTop:'20px'}}>
-      <div class="card">
-        <div class="card-body">
+      <div className="card">
+        <div className="card-body">
           <Link to='/' className="btn btn-primary" style={{fontSize:'11px', backgroundColor:'#000'}}>CONTINUE BROWSING</Link>
         </div>
       </div>
@@ -153,16 +162,15 @@ class Carts extends React.Component {
       </Col>
       <Col md={4} style={{marginTop:'20px'}}>
 <Card body outline color="danger">
-   <div class="card-body">
+   <div className="card-body">
         <CardText>Total price:</CardText>
         <CardText><b>IDR {this.state.Subtotal}</b></CardText>
         <Link className="btn btn-success" color='success' style={{textAlign:'center', marginTop:20, fontSize:'12px'}} to={`/Checkout/${this.state.id}`}>CHECK OUT</Link>
          </div>
          </Card>       
       </Col>
-
     </Row>
-
+          ))}
   
   </Container>
       )

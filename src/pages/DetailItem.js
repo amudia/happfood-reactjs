@@ -2,13 +2,14 @@ import React from 'react'
 import axios from 'axios'
 import {APP_URL} from '../resources/config'
 import {Link} from 'react-router-dom'
-import {CardText,CardTitle,Row, Col,Button, Container, Card,CardHeader, CardBody} from 'reactstrap'
+import {CardText,CardTitle,Row, Col,Button, Container, Card,CardHeader} from 'reactstrap'
 import { getDetails } from '../redux/action/Detail';
 import { getRiviews } from '../redux/action/Riviews'
 import { connect } from 'react-redux';
 import { getSuggest } from '../redux/action/Suggest'
 import Jwt from 'jwt-decode'
 import Cookie from 'js-cookie'
+import StarRatingComponent from 'react-star-rating-component';
 
 const peopleList ={
   wrapper: {
@@ -135,10 +136,12 @@ class DetailItem extends React.Component {
       </div>
       <div className="col-md-5 ml-5" style={{marginTop:60}}>
         <CardTitle style={{fontSize:'20px'}}><b>{v.name_item}</b></CardTitle>
+        <div style={{fontSize:29}}>
+        <StarRatingComponent value = {v.rating} emptyStarColor="white"  starColor="orange" numberOfStars={5} editing={false}  />
+        </div>
         <CardText style={{fontSize:14}}><b>Restaurant : {v.name_rest}</b></CardText>
         <CardText style={{fontSize:14}}><b>IDR.</b>         {v.price}</CardText>
         <CardText style={{fontSize:14}}><b>Desc :</b>       {v.desc_item}</CardText>
-        <CardText style={{fontSize:14}}><b>Rate :</b>       {v.rating}</CardText>
         <CardText style={{fontSize:14}}><b>QUANTITY</b></CardText>
       <Button onClick={this.buttonClickMin} 
       disabled={this.state.qty <=1 ?true : false} style={{height:52, width:40}} className="btn btn-dark">-</Button>
@@ -151,27 +154,23 @@ class DetailItem extends React.Component {
       <hr/>
                 {/* RIVIEWS */}
                 <br/>
-          <Card style={{paddingBottom:'20px'}}>
+    <Card style={{paddingBottom:'20px'}}>
       <Card style={{marginTop:20,marginLeft:30, width:300}}>
         <CardHeader><text style={peopleList.textjudul}>Riviews</text></CardHeader>
       </Card>
-    {
-    !this.props.riviews.isLoading&&
-      this.props.riviews.data.map((v, i)=>(
-
-      <Col md ={11} key={i} style={{paddingBottom:1 ,marginLeft:30, marginTop:10, marginRight:30, backgroundColor:'#fff', borderRadius:20}}>
-      <Card body outline color="success" style={{marginTop:10}}>
-          <CardBody>
-            <CardTitle style={{fontSize:'12px'}}><b>{v.username}</b> </CardTitle>
-            <CardText key={v.id_item} style={{fontSize:'12px'}}><i>{v.riview}</i> </CardText>
-          </CardBody>
-        </Card> 
-        </Col> 
-        
-
-    )
-    )}
-        </Card>
+          {
+          !this.props.riviews.isLoading&&
+          this.props.riviews.data&&
+            this.props.riviews.data.map((v, i)=>(
+            <Col md ={11} key={i} style={{paddingBottom:1 ,marginLeft:30, marginTop:10, marginRight:30, backgroundColor:'#fff', borderRadius:20}}>
+            <Card body outline color="success">
+                  <CardTitle style={{fontSize:'12px'}}><b>{v.username}</b> </CardTitle>
+                  <CardText key={v.id_item} style={{fontSize:'12px'}}><i>{v.riview}</i> </CardText>
+              </Card> 
+            </Col> 
+          )
+          )}
+    </Card>
     </Col> 
        <Col md={12} style={{paddingBottom:50 ,marginLeft:0, marginTop:10, marginRight:30, backgroundColor:'#fff'}} >
     <Card style={{marginTop:20,marginLeft:30, width:300}}>

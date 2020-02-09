@@ -51,8 +51,8 @@ class Checkout extends React.Component {
   <Row >
   
       <Col md={12} >
-      <div class="card" >
-        <div class="card-body">
+      <div className="card" >
+        <div className="card-body">
         {!this.props.cart.isLoading&&
       this.props.cart.data.map((v, i)=>(
         <Row key={v.id_item}>         
@@ -90,7 +90,7 @@ class Checkout extends React.Component {
       </Col>
       <Col md={4} style={{marginTop:'20px'}}>
 <Card body outline color="danger">
-   <div class="card-body">
+   <div className="card-body">
         <CardText>Total price:</CardText>
         <CardText><b>IDR {this.state.Subtotal}</b></CardText>
         <Link className="btn btn-success" color='success' style={{textAlign:'center', marginTop:20, fontSize:'12px'}} to={`/Riview/${this.state.id}`}>CONFIRM</Link>

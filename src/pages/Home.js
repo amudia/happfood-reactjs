@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
-import axios from 'axios'
 import { Container } from "reactstrap";
 import {Link} from 'react-router-dom'
-import {Input, Card, CardImg, CardSubtitle, CardBody,Button, CardTitle, CardText, Row, Col } from 'reactstrap';
+import {Card, CardImg, CardSubtitle, CardBody,Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import {APP_URL} from '../resources/config'
 import { getItems } from '../redux/action/items'
 import { nextItems } from '../redux/action/items'
 import { connect } from 'react-redux'
 import StarRatingComponent from 'react-star-rating-component';
+import Axios from 'axios';
 
 class Home extends Component {
     constructor(props){
@@ -19,22 +19,37 @@ class Home extends Component {
          name_item:'',
          categorySelected:'',
          isLoading :false,
+         isFetchedData:false
 
         }
     }
     async componentDidMount(){
-      this.props.dispatch(getItems())
-      this.setState({isLoading:true})
+      await this.props.dispatch(getItems())
+      console.log(this.props.items)
+      const url = APP_URL.concat(`categories`)
+      const user = await Axios.get(url)
+      const {data} = user
+      console.log(data)
+
+      this.setState({isLoading:true, data, isFetched:true})
+    }
+
+
+    nextItems = async(nextURL) => {
+      await this.props.dispatch(nextItems(nextURL))
+    }
+    prevItems = async(nextURL) => {
+      await this.props.dispatch(nextItems(nextURL))
     }
 
     search = async() => {
       const {name_item, rating, categorySelected} = this.state
-      const query = `items?search[name_item]=${name_item}&search[rating]=${rating}`
+      const query = `http://localhost:4040/items?search[name_item]=${name_item}&search[rating]=${rating}&search[id_category]=${categorySelected}`
       await this.props.dispatch(nextItems(query))
     }
 
 render(){
-  const {name_item,rating}=this.state
+  const {name_item,isFetched, data, isLoading}=this.state
 
     return(
 <Container >
@@ -77,13 +92,11 @@ render(){
     </Col>
     <Col md='2'>
     <div className="input-group" >
-      <select className="custom-select" id="inputGroupSelect01" style={{fontSize:'12px', height:37}}>
+      <select onChange={(e) => this.setState({categorySelected: e.target.value})} className="custom-select" id="inputGroupSelect01" style={{fontSize:'12px', height:37}}>
         <option defaultValue value="">All Category</option>
-        <option value="5">5</option>
-        <option value="4">4</option>
-        <option value="3">3</option>
-        <option value="2">2</option>
-        <option value="1">1</option>
+        {isFetched&&data.data.map((v,i)=>(
+<option key={i} value={v.id_category}>{v.name_category}</option>
+        ))}
       </select>
     </div>   
     </Col>
@@ -98,15 +111,15 @@ render(){
     <Row>
     {
     !this.props.items.isLoading&&
-    this.props.items.data&&
-    this.props.items.data.map(v=>(
+    this.props.items.data.data&&
+    this.props.items.data.data.map(v=>(
       <Col sm="3" key={v.id_item} style={{ marginBottom:15, borderRadius:20}}>
       <Card style={{height:370}} className="shadow-sm">
         <CardImg top width="100%" height="50%" src={APP_URL.concat(`src/assets/${v.image}`)} alt="Card image cap" />
         <CardBody>
           <Row style={{height:25,paddingLeft:10}}>
-          <StarRatingComponent value = {v.rating} emptyStarColor="white"  starColor="orange" numberOfStars={5} starDimension = "15px" starSpacing = "1px"/>
-        </Row>
+          <StarRatingComponent value = {v.rating} editing={false} emptyStarColor="white"  starColor="orange" numberOfStars={5} starDimension = "15px" />
+          </Row>
           <Row style={{height:35,paddingLeft:10}}>
           <CardTitle style={{fontSize:'11px'}}><b>{v.name_item}</b></CardTitle>
           </Row>
@@ -124,15 +137,18 @@ render(){
       </Col>
       ))}
     </Row>
-
-    <Row className='mt-5 mb-5'>
-      <Col md={6} className='text-center'>
-          <Button onClick={this.prevButton} color='primary' style={{fontSize:'12px'}}> Previous </Button>
-      </Col>
-      <Col md={6} className='text-center'>
-          <Button onClick={this.nextButton} color='primary' style={{fontSize:'12px'}}> Next </Button>
-      </Col>
-    </Row>
+      <Row className='mt-5 mb-5'>
+        <Col md={6} className='text-center'>
+        {!this.props.items.isLoading&&this.props.items.data.info.previous&&
+            <Button onClick={() => this.nextItems(this.props.items.data.info.previous)} color='primary' style={{fontSize:'12px'}}> Previous </Button>
+          }
+        </Col>
+        <Col md={6} className='text-center'>
+        {!this.props.items.isLoading&&this.props.items.data.info.next&&
+            <Button onClick={() => this.nextItems(this.props.items.data.info.next)} color='primary' style={{fontSize:'12px'}}> Next </Button>
+          }
+        </Col>
+      </Row>
 </Container>
     )
 }

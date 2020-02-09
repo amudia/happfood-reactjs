@@ -6,6 +6,7 @@ import Jwt from 'jwt-decode'
 import { getCart } from '../redux/action/cart'
 import { postRiviews } from '../redux/action/Riviews'
 import { connect } from 'react-redux'
+import StarRatingComponent from 'react-star-rating-component';
 
 const token = Cookie.get('token')
 let decode = ''
@@ -20,12 +21,16 @@ class Riview extends React.Component {
     
     this.state = {
         riview : "",
-        rating : "",
+        rating : 1,
         id:decode.id,
         isFetched:false,
         Subtotal:0,
         isLoading:false
       }
+}
+
+onStarClick(nextValue, prevValue, name) {
+  this.setState({rating: nextValue});
 }
 async componentDidMount(){
   const {id} = this.props.match.params
@@ -41,7 +46,7 @@ async onSubmit(id_item){
   const rating = this.state.rating
   console.log(id_item,rating)
   await this.props.dispatch(postRiviews(id_item,id_user,riview,rating))
-  // window.location.reload()
+  window.location='/'
 }
 
   render() {
@@ -59,15 +64,16 @@ async onSubmit(id_item){
           <hr/> 
           <img src={APP_URL.concat(`src/assets/${v.image}`)} alt={v.name_item} className="img-thumbnail"  />
           </Col>
-          <Col md={4} style={{marginTop:50}}>
-          <Input type="select" name="select" value = {this.state.rating} onChange={(e)=>this.setState({rating:e.target.value})}>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </Input>
-          </Col>
+          <Col md={4} style={{marginTop:50, alignSelf:'center'}}>
+          <div style={{fontSize:29}}>
+          <StarRatingComponent 
+          name="rate1" 
+          starCount={5}
+          value={this.state.rating}
+          onStarClick={this.onStarClick.bind(this)}
+          />
+          </div>
+        </Col>
           <Col md={4} style={{marginTop:50, alignItems:'center', justifyContent:'center'}}>
           <Input type="textarea" name="text"
         value={this.state.riview} onChange={(e)=>this.setState({riview:e.target.value})} />

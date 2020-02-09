@@ -5,10 +5,6 @@ import {
     NavbarBrand,
     Nav,
     NavItem,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
     Button
   } from 'reactstrap';
 import React, { Component } from 'react';
@@ -37,21 +33,14 @@ class NavBar extends Component {
     }
   }
 
-  // async logout(){
-  //   await Axios.get( APP_URL.concat('users/logout'), {
-  //     headers: {
-  //        Authorization: 'Bearer ' + token
-  //     }
-  //   })
-  //     .then((res) =>{
-  //       console.log(res)
-  //       if (res.data.success === true) {
-  //         Cookie.remove('token')
-  //         window.location.reload()            
-  //       }
-  //     })
-  // }
-
+  async componentDidMount(){
+    const url = APP_URL.concat(`categories`)
+    const user = await Axios.get(url)
+    const {data} = user
+    console.log(data)
+    this.setState(
+        { data, isFetchedData:true})
+}
 
   logout = async () => {
     const url = APP_URL.concat(`users/logout`)
@@ -95,28 +84,8 @@ class NavBar extends Component {
               <NavItem>
                 <Link to="/Restaurants" className="nav-link" style={{color: 'white', textDecoration: 'none'}}>Menu</Link>
               </NavItem>
-              <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret style={{color: 'white', textDecoration: 'none'}}>
-                  Categories
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem>
-                    Option 1
-                  </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>
-                    Option 2
-                  </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>
-                    Reset
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown>
             </Nav>
             <Nav navbar style={{paddingRight:'150px'}}>
-
- 
             <NavItem>
             </NavItem>
             {!token?

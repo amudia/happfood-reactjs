@@ -22,7 +22,7 @@ const initialState = {
       case 'GET_ITEMS_FULFILLED':
         return {
             ...state,
-          data: action.payload.data.data,
+          data: action.payload.data,
           isLoading:false,
           isError:false,
         }
@@ -41,10 +41,11 @@ const initialState = {
         case 'GET_NEXT_ITEMS_FULFILLED':
           return {
               ...state,
-            data: action.payload.data.data,
+            data: action.payload.data,
             isLoading:false,
             isError:false,
           }
+          
         default :
           return state
     }
